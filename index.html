@@ -1,0 +1,137 @@
+<html>
+<head>
+<title>
+glumov
+</title> 
+<link rel="stylesheet" type="text/css" href="style.css">
+<!--avec code de : http://html5doctor.com/video-canvas-magic/ -->  
+    
+    <!-- TODO  -->   
+    <!-- fullscreen, détection de résolution Alx -->  (done)
+    <!--avant la séquences prendre un des montages sur le code 35 Alx -->  
+    <!--changer la typo Salah -->  
+    <!-- si le mot a deux consonnes || deux voyelles alors le même video joue dans deux fenêtres Alx --> 
+    <!-- ajouter le fichier d'informations Salah --> 
+    <!-- ajouter a propos, howto, etc Salah pour le texte Alexndre pour le menu --> 
+    <!-- faire un trailer et décider ou le mettre Salah --> 
+    <!-- mettre le code en ligne sur github--> 
+    
+    <!-- garder les mots en mémoire -->    
+</head>
+      
+<body>
+    <!-- <div style="font-family: Conduit ITC W01 Regular;">blah </div>-->
+<section id="PE">  
+    
+<video id="vidz"  width="1280" height="720"></video>
+<!-- tabindex="1" est nécessaire pour l'entrée de texte ???!!!-->
+<canvas id="monCanvas" tabindex="1" width="1280" height="720"></canvas>
+    
+</section>
+
+        
+<script type="text/javascript">
+    window.onload = function () { 
+    console.log("It's loaded!")
+    var mot = "";
+    var sequence = [];
+    var leVideo = 0;
+    canvas = document.getElementById("monCanvas");
+    ctx = canvas.getContext("2d");
+    videos = document.getElementById("vidz");
+
+    residence();
+    }
+
+function residence(){
+    console.log('on arrive residence');
+    mot = "";
+    console.log("mot residence : "+mot)
+    sequence = [];
+    longueur = 0;
+      
+   /* .demo{
+    font-family:"Conduit ITC W01 Regular" !important;
+    font-size:16px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;}
+    
+    */
+    
+    ctx.font = '90px Conduit ITC W01 Regular';
+    ctx.fillStyle = '#e31616';
+    ctx.textAlign ="center";  
+    
+    // ctx.font = "90px arial";
+    // ctx.fillStyle = 'red';
+   
+    var img = new Image()
+    img.src = "images/glumov.png";
+    ctx.drawImage(img,ctx.canvas.width/2-img.width/2,ctx.canvas.height/2-img.height/2);
+    
+    //ctx.fillText("g l u m o v",ctx.canvas.width/2-50,ctx.canvas.height/2);
+    
+    videos.src = "videos/97.mp4";     
+    videos.play() // play the video
+
+          
+   canvas.onkeypress = function(evt) {     
+ 
+       var numero =evt.keyCode;  //alert(numero);
+       
+        if (numero==13){
+           console.log("playa");   
+           ctx.clearRect(0,0,1280,720); // effacer le texte
+           leVideo = 0;
+           playa();
+       }
+       
+       else
+       {
+       var charCode = evt.which;
+       var charStr = String.fromCharCode(charCode);
+       mot += charStr; 
+       console.log("le mot : "+mot);
+       sequence.push(evt.which); // les ajouter au tableau 'séquence'     //console.log(sequence);
+       ctx.clearRect(0,0,1280,720);
+       //ctx.fillStyle = '';  
+       ctx.fillText(mot,ctx.canvas.width/2-50,ctx.canvas.height/2); // le '50' est un shim, je ne sais pas pquoi il est nécessaire pour centrer le texte.    
+       }       
+    }
+}
+                
+function playa(){
+    
+    console.log("nouveau video");
+    console.log("le mot : "+mot);
+    console.log("valeurs utf-8 : "+sequence);
+    var longueur = sequence.length;
+    console.log("longueur du tableau :"+longueur);
+    console.log("quel video? : "+leVideo);
+    
+    videos.removeEventListener('ended',playa,false);  // remove the event listener, if there is one
+    videos.src = "videos/"+sequence[leVideo]+".mp4";     
+    videos.play() // play the video
+    
+    leVideo = (leVideo + 1); // ajoute 'un' pour passer au prochain élément du tableau 
+    
+    videos.addEventListener('ended',playa,false);   // add an event listener so when the video ends, it will call the playa function again    
+    if(leVideo>longueur){
+      
+   videos.removeEventListener('ended',playa,false);  // remove the event listener, if there is one
+           
+        residence(); // essaie de retourner au début   
+    }
+}
+
+</script>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		
+<script src="src/screenfull.js"></script>
+        
+<script src ="src/lesfonctions.js"></script>
+    
+    </body>
+    </html>

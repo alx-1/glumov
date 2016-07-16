@@ -1,0 +1,87 @@
+
+/* pour changer la fonte */
+
+@font-face {font-family: "Conduit ITC W01 Regular";
+  src: url("src/@font-face/81e97fa7dc68602b8589d95161d1e00f.eot"); /* IE9*/
+  src: url("src/@font-face/81e97fa7dc68602b8589d95161d1e00f.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("src/@font-face/81e97fa7dc68602b8589d95161d1e00f.woff2") format("woff2"), /* chrome、firefox */
+  url("src/@font-face/81e97fa7dc68602b8589d95161d1e00f.woff") format("woff"), /* chrome、firefox */
+  url("src/@font-face/81e97fa7dc68602b8589d95161d1e00f.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url("src/@font-face/81e97fa7dc68602b8589d95161d1e00f.svg#Conduit ITC W01 Regular") format("svg"); /* iOS 4.1- */
+}
+
+
+body {
+    background: black;
+}
+
+/*
+#monCanvas {
+   position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+#vidz {
+    position: absolute;
+    top: 0;
+    left: 0;
+    //margin: -180px 0 0 -240px;
+}
+
+
+*/
+
+#monCanvas{
+    position: absolute;
+    /*top: 0;
+    left: 0;*/
+    width: 100%;
+    height: auto;
+    outline: none;
+}
+
+#vidz {
+   position: absolute;
+    /*top: 0;
+    left: 0;*/
+    width: 100%;
+    height: auto;
+}
+
+
+#PE {
+    position: absolute;
+    top: 25;
+    width: 100%;
+    height: auto;
+    
+}
+
+
+#monimg {
+			width: 100%;
+			height: auto;
+		}
+
+		#monimg,#monCanvas,#PE,
+		#vidz {
+			cursor: none;
+		}
+
+/* pour ne pas avoir les barres de timeline de la video */
+
+audio::-webkit-media-controls-timeline,
+video::-webkit-media-controls-timeline {
+    display: none;
+}
+audio::-webkit-media-controls,
+video::-webkit-media-controls {
+    display: none;
+}
