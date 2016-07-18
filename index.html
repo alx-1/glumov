@@ -23,62 +23,49 @@ glumov
     <!-- <div style="font-family: Conduit ITC W01 Regular;">blah </div>-->
 <section id="PE">  
     
-<video id="vidz"  width="1280" height="720"></video>
-<!-- tabindex="1" est nécessaire pour l'entrée de texte ???!!!-->
-<canvas id="monCanvas" tabindex="1" width="1280" height="720"></canvas>
-    
+    <video id="vidz"  width="1280" height="720"></video>
+    <!-- tabindex="1" est nécessaire pour l'entrée de texte ???!!!-->
+    <canvas id="monCanvas" tabindex="1" width="1280" height="720"></canvas>
+    <img src="images/glumov.png" style="display: none;" > 
+   
 </section>
-
+    
         
 <script type="text/javascript">
     window.onload = function () { 
-    console.log("It's loaded!")
-    var mot = "";
+    // console.log("It's loaded!")
+    mot = "";
     var sequence = [];
     var leVideo = 0;
     canvas = document.getElementById("monCanvas");
     ctx = canvas.getContext("2d");
     videos = document.getElementById("vidz");
-
-    residence();
+        
+    residence();ddd
     }
 
 function residence(){
     console.log('on arrive residence');
-    mot = "";
-    console.log("mot residence : "+mot)
+    //console.log("mot residence : "+mot);
     sequence = [];
     longueur = 0;
-      
-   /* .demo{
-    font-family:"Conduit ITC W01 Regular" !important;
-    font-size:16px;font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;}
-    
-    */
-    
+    ctx.clearRect(0,0,1280,720);     
     ctx.font = '90px Conduit ITC W01 Regular';
     ctx.fillStyle = '#e31616';
     ctx.textAlign ="center";  
-    
-    // ctx.font = "90px arial";
-    // ctx.fillStyle = 'red';
    
     var img = new Image()
     img.src = "images/glumov.png";
     ctx.drawImage(img,ctx.canvas.width/2-img.width/2,ctx.canvas.height/2-img.height/2);
-    
     //ctx.fillText("g l u m o v",ctx.canvas.width/2-50,ctx.canvas.height/2);
     
-    videos.src = "videos/97.mp4";     
+    videos.src = "videos/42.mp4";     
     videos.play() // play the video
-
-          
+    
    canvas.onkeypress = function(evt) {     
  
        var numero =evt.keyCode;  //alert(numero);
+       //console.log('bin là : '+numero);
        
         if (numero==13){
            console.log("playa");   
@@ -87,15 +74,24 @@ function residence(){
            playa();
        }
        
-       else
+       else 
        {
+       
        var charCode = evt.which;
        var charStr = String.fromCharCode(charCode);
+            /* rock on! */   
+        
+          console.log('le charStr : '+charStr);  
+           
+           if (charStr== '='){
+            console.log('efface!!!!!');
+               mot = "";
+        }
+           
        mot += charStr; 
        console.log("le mot : "+mot);
        sequence.push(evt.which); // les ajouter au tableau 'séquence'     //console.log(sequence);
        ctx.clearRect(0,0,1280,720);
-       //ctx.fillStyle = '';  
        ctx.fillText(mot,ctx.canvas.width/2-50,ctx.canvas.height/2); // le '50' est un shim, je ne sais pas pquoi il est nécessaire pour centrer le texte.    
        }       
     }
@@ -111,7 +107,23 @@ function playa(){
     console.log("quel video? : "+leVideo);
     
     videos.removeEventListener('ended',playa,false);  // remove the event listener, if there is one
-    videos.src = "videos/"+sequence[leVideo]+".mp4";     
+    videos.src = "videos/"+sequence[leVideo]+".mp4"; 
+    console.log("la source du vidéo : "+videos.src);
+    
+    
+    
+    videos.onerror = function() {
+    // image did not load
+    console.log('erreur!');
+    videos.src = "videos/42.mp4";   
+    residence();    
+    //var err = new Image();
+    //err.src = '/error.png';
+
+    // document.body.appendChild(err);
+}
+    
+    
     videos.play() // play the video
     
     leVideo = (leVideo + 1); // ajoute 'un' pour passer au prochain élément du tableau 
